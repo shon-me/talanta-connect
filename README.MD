@@ -32,7 +32,7 @@ Connecting brands with creators tailored to their specific niche, audience size,
 
 Real time analytics that link creator content reach directly to engagement and sales conversions.
 
-### TRusted transactions:
+### Trusted transactions:
 
 Clear milestones and reliable payment systems that protect both creators and brands.
 
