@@ -39,3 +39,12 @@ Clear milestones and reliable payment systems that protect both creators and bra
 # SDG 8 Alignment: Decent Work and Economic Growth
 
 Talanta Connect directly aligns with UN Sustainable Development Goal 8 (Decent Work and Economic Growth). By formalizing and professionalizing the digital creator space, the platform helps turn flexible, no-traditional media work into sustainable, respected, and fairly compensated careers.
+
+flowchart TD
+    A[Landing page] -->|Sign-up/Login| Aa[verification]-->B
+    B[Home-page]
+    B --> Ba[Creator homepage] -->C
+    B --> Bb[Brand homepage] -->C
+    C[Dashboard]
+    C -->|One| D[Creator Dashboard]
+    C -->|Two| E[Brand Dashboard]
