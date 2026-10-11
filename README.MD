@@ -1,3 +1,5 @@
+<!-- Gershon Ngetich -->
+<!-- October 2026 -->
 # Talanta-connect
 
 ## Overview

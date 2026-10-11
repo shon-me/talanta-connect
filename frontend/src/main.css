@@ -1,0 +1,38 @@
+/* Gershon Ngetich */
+/* Vuetify may not be enough for the styling */
+/* My custom styling */
+
+/* Glassmorphic effect */
+/* Has CSS variables */
+/* The effect can be adjusted directly in the componenet/element */
+.glass {
+  background: rgba(var(--glass-tint, 255, 255, 255), var(--glass-opacity, 0.15));
+  backdrop-filter: blur(var(--glass-blur, 12px));
+  -webkit-backdrop-filter: blur(var(--glass-blur, 12px));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  /* border radius commented out(Gershon) */
+  border-radius: 2px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Differenr variations of the glass effect */
+.glass-dark {
+  --glass-tint: 0, 0, 0;
+}
+
+.glass-primary {
+  --glass-tint: var(--v-theme-primary);
+}
+
+.glass-error {
+  --glass-tint: var(--v-theme-error);
+}
+
+.glass-strong {
+  --glass-opacity: 0.3;
+}
+
+/* Cover for video element: Lacking in vuetify */
+.video-cover {
+  object-fit: cover;
+}

@@ -4,6 +4,9 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+//Custom css styling linking
+import './main.css'
+
 // Vuetify
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
@@ -21,12 +24,16 @@ const vuetify = createVuetify({
   theme: {
     defaultTheme: 'light',
     themes: {
-        light: {
-            colors: {
-                primary: "#F4511E",
-                secondary: "#FF3D00",
-            },
+      light: {
+        colors: {
+          primary: "#1F70EA",
+          secondary: "#FF8C00",
+          accent1: "#FF3D00",
+          accent2: "#FFC300",
+          accent3: "#2a9d8f",
+          accent4: "#005f73",
         },
+      },
     },
   },
 })
