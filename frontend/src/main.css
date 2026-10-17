@@ -10,8 +10,6 @@
   backdrop-filter: blur(var(--glass-blur, 12px));
   -webkit-backdrop-filter: blur(var(--glass-blur, 12px));
   border: 1px solid rgba(255, 255, 255, 0.3);
-  /* border radius commented out(Gershon) */
-  border-radius: 2px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
@@ -35,4 +33,61 @@
 /* Cover for video element: Lacking in vuetify */
 .video-cover {
   object-fit: cover;
+}
+
+/* Animations for the glass card in landing page */
+/* Can be reused anywhere if needed */
+/* Animated blobs */
+.animated-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ensure the <span class="blob blob-1"></span> exists */
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.7;
+  animation: drift 14s ease-in-out infinite alternate;
+}
+
+.blob-1 { width: 300px; height: 300px; background: #ff6ec4; top: -80px;  left: -60px; }
+.blob-2 { width: 260px; height: 260px; background: #7873f5; bottom: -60px; right: -40px; animation-duration: 18s; animation-delay: -5s; }
+.blob-3 { width: 220px; height: 220px; background: #4ade80; top: 40%; left: 40%; animation-duration: 22s; animation-delay: -9s; }
+
+@keyframes drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(70px, 50px) scale(1.25); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blob { animation: none; }
+}
+
+/* Animatend gardient */
+.animated-gradient {
+  background: linear-gradient(135deg, #FFC300, #2a9d8f, #1F70EA);
+  background-size: 300% 300%;
+  animation: shift 12s ease infinite;
+}
+
+@keyframes shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Transition items for couresel effect in the landing page */
+/* Feartured brands and creators */
+.brand-card {
+  transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+}
+.brand-move {
+  transition: transform 0.5s ease;
+}
+.brand-enter-from,
+.brand-leave-to {
+  opacity: 0;
 }
