@@ -1,0 +1,53 @@
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.signup-form__role {
+  margin: 0.25rem 0 1rem;
+}
+
+.signup-form__role-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.signup-form__role-toggle {
+  display: flex;
+  width: 100%;
+}
+
+.signup-form__error {
+  margin-bottom: 1rem;
+}
+
+.signup-form__footer {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Variant for dark / glass backgrounds */
+.signup-form--dark {
+  color: #fff;
+}
+
+.signup-form--dark .signup-form__role-toggle .v-btn {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.signup-form--dark .signup-form__footer a {
+  color: rgb(var(--v-theme-accent2));
+  font-weight: 600;
+}
+
+/* Selected role (declared last so it wins in both variants) */
+.signup-form .signup-form__role-toggle .v-btn.v-btn--active {
+  background: rgb(var(--v-theme-secondary));
+  border-color: transparent;
+  color: var(--tc-ink);
+}

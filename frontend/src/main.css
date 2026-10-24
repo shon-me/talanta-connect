@@ -2,6 +2,18 @@
 /* Vuetify may not be enough for the styling */
 /* My custom styling */
 
+/* ADDED: page/component styles live in src/styles/ and are pulled in here. */
+/* @import rules must stay at the top of this file. */
+@import './styles/home.css';
+@import './styles/ui.css';
+@import './styles/signup-form.css';
+@import './styles/hero.css';
+@import './styles/featured-brands.css';
+@import './styles/featured-creators.css';
+@import './styles/join-cta.css';
+@import './styles/app-bar.css';
+@import './styles/app-footer.css';
+
 /* Glassmorphic effect */
 /* Has CSS variables */
 /* The effect can be adjusted directly in the componenet/element */
@@ -53,17 +65,48 @@
   animation: drift 14s ease-in-out infinite alternate;
 }
 
-.blob-1 { width: 300px; height: 300px; background: #ff6ec4; top: -80px;  left: -60px; }
-.blob-2 { width: 260px; height: 260px; background: #7873f5; bottom: -60px; right: -40px; animation-duration: 18s; animation-delay: -5s; }
-.blob-3 { width: 220px; height: 220px; background: #4ade80; top: 40%; left: 40%; animation-duration: 22s; animation-delay: -9s; }
+.blob-1 {
+  width: 300px;
+  height: 300px;
+  background: #ff6ec4;
+  top: -80px;
+  left: -60px;
+}
+
+.blob-2 {
+  width: 260px;
+  height: 260px;
+  background: #7873f5;
+  bottom: -60px;
+  right: -40px;
+  animation-duration: 18s;
+  animation-delay: -5s;
+}
+
+.blob-3 {
+  width: 220px;
+  height: 220px;
+  background: #4ade80;
+  top: 40%;
+  left: 40%;
+  animation-duration: 22s;
+  animation-delay: -9s;
+}
 
 @keyframes drift {
-  from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(70px, 50px) scale(1.25); }
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(70px, 50px) scale(1.25);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .blob { animation: none; }
+  .blob {
+    animation: none;
+  }
 }
 
 /* Animatend gardient */
@@ -74,20 +117,121 @@
 }
 
 @keyframes shift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Transition items for couresel effect in the landing page */
 /* Feartured brands and creators */
+/* NOTE: the featured brands carousel now moves cards with transforms (see styles/featured-brands.css), */
+/* so these three rules are no longer used. Safe to delete. */
 .brand-card {
   transition: width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
 }
+
 .brand-move {
   transition: transform 0.5s ease;
 }
+
 .brand-enter-from,
 .brand-leave-to {
   opacity: 0;
+}
+
+/* ================================================================== */
+/* ADDED: global design tokens, scroll behaviour and helpers           */
+/* ================================================================== */
+
+:root {
+  --font-display: 'Unbounded Variable', 'Trebuchet MS', sans-serif;
+  --font-body: 'Figtree Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --tc-ink: #0a2f38;      /* deep teal-black: text on light backgrounds (darkened accent4) */
+  --tc-paper: #f4f8fb;    /* light section background */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* If App.vue uses a v-app-bar, set this to its height so sections fit under it */
+  --app-bar-height: 64px;
+}
+
+.v-application,
+.v-btn,
+.v-field,
+.v-label {
+  font-family: var(--font-body);
+}
+
+/* Smooth scrolling + one section per screen.
+   proximity on phones/short screens so tall sections can never trap content,
+   mandatory on desktop. */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--app-bar-height);
+  scroll-snap-type: y proximity;
+}
+
+@media (min-width: 960px) and (min-height: 640px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Brand-coloured version of the animated blobs (yellow, orange, blue) */
+.animated-bg--brand .blob-1 {
+  background: rgb(var(--v-theme-accent2));
+}
+
+.animated-bg--brand .blob-2 {
+  background: rgb(var(--v-theme-secondary));
+}
+
+.animated-bg--brand .blob-3 {
+  background: rgb(var(--v-theme-primary));
+}
+
+/* Text for screen readers only */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+/* Lets keyboard users jump past the app bar. Hidden until focused. */
+.skip-link {
+  position: fixed;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2000;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  background: #fff;
+  color: var(--tc-ink);
+  font-weight: 600;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
 }

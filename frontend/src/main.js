@@ -4,8 +4,9 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
-//Custom css styling linking
-import './main.css'
+// Fonts (self-hosted). Install: npm i @fontsource-variable/unbounded @fontsource-variable/figtree
+import '@fontsource-variable/unbounded'
+import '@fontsource-variable/figtree'
 
 // Vuetify
 import 'vuetify/styles'
@@ -13,6 +14,10 @@ import { createVuetify } from 'vuetify'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import '@mdi/font/css/materialdesignicons.css'
+
+// Custom css styling linking
+// Keep this AFTER vuetify/styles so our rules win when specificity is equal
+import './main.css'
 
 
 const vuetify = createVuetify({

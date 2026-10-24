@@ -1,0 +1,32 @@
+/* Shared by every homepage section */
+
+.home-section {
+  position: relative;
+  min-height: 100vh;
+  min-height: calc(100svh - var(--app-bar-height));
+  scroll-snap-align: start;
+}
+
+.section-inner {
+  width: min(100% - 2rem, 1120px);
+  margin-inline: auto;
+}
+
+.section-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  color: var(--tc-ink);
+  text-wrap: balance;
+}
+
+.section-lead {
+  max-width: 52ch;
+  margin: 0.75rem 0 0;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.6;
+  color: rgba(10, 47, 56, 0.72);
+}

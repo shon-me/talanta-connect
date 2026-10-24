@@ -1,0 +1,183 @@
+.featured-creators {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(2.5rem, 7svh, 5rem);
+  background: #fff;
+}
+
+.featured-creators__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: clamp(1.25rem, 4svh, 2.5rem);
+}
+
+.featured-creators__status {
+  margin: 1rem 0 0;
+  color: var(--tc-ink);
+}
+
+/* ---------- 2 x 2 grid: the open card takes more of its row and column ---------- */
+
+.featured-creators__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  height: clamp(420px, 68svh, 640px);
+  transition:
+    grid-template-columns 0.7s var(--ease-out),
+    grid-template-rows 0.7s var(--ease-out);
+}
+
+.featured-creators__grid--col-0 { grid-template-columns: 2.4fr 1fr; }
+.featured-creators__grid--col-1 { grid-template-columns: 1fr 2.4fr; }
+.featured-creators__grid--row-0 { grid-template-rows: 2.4fr 1fr; }
+.featured-creators__grid--row-1 { grid-template-rows: 1fr 2.4fr; }
+
+@media (max-width: 599px) {
+  .featured-creators__grid--col-0 { grid-template-columns: 1.7fr 1fr; }
+  .featured-creators__grid--col-1 { grid-template-columns: 1fr 1.7fr; }
+  .featured-creators__grid--row-0 { grid-template-rows: 1.9fr 1fr; }
+  .featured-creators__grid--row-1 { grid-template-rows: 1fr 1.9fr; }
+}
+
+/* ---------- card ---------- */
+
+.creator-card {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 0.7rem;
+  background: rgb(var(--v-theme-accent4));
+  color: #fff;
+  transition: filter 0.6s ease;
+}
+
+/* Placeholder colours until real photos are in */
+.creator-card:nth-child(1) { background: rgb(var(--v-theme-primary)); }
+.creator-card:nth-child(2) { background: rgb(var(--v-theme-accent3)); }
+.creator-card:nth-child(3) { background: rgb(var(--v-theme-accent1)); }
+.creator-card:nth-child(4) { background: rgb(var(--v-theme-accent4)); }
+
+.creator-card--muted {
+  filter: saturate(0.7);
+}
+
+.creator-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.9s var(--ease-out);
+}
+
+.creator-card--expanded .creator-card__img {
+  transform: scale(1.05);
+}
+
+.creator-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(4, 32, 40, 0.85) 0%, rgba(4, 32, 40, 0.1) 60%, rgba(4, 32, 40, 0) 100%);
+}
+
+/* Invisible button that covers the card: one real control for click, tap and keyboard */
+.creator-card__toggle {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.creator-card__toggle:focus-visible {
+  outline: 3px solid rgb(var(--v-theme-accent2));
+  outline-offset: -6px;
+  border-radius: inherit;
+}
+
+.creator-card__content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  pointer-events: none;
+}
+
+.creator-card__craft {
+  max-width: 100%;
+  margin: 0;
+  overflow: hidden;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Bio, skills and profile link open up inside the expanded card */
+.creator-card__details {
+  display: grid;
+  grid-template-rows: 0fr;
+  width: 100%;
+  opacity: 0;
+  transition: grid-template-rows 0.6s var(--ease-out), opacity 0.3s ease;
+}
+
+.creator-card--expanded .creator-card__details {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition: grid-template-rows 0.6s var(--ease-out) 0.2s, opacity 0.5s ease 0.3s;
+}
+
+.creator-card__details-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.creator-card__bio {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.creator-card__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.creator-card__details .v-btn {
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .featured-creators__grid,
+  .creator-card,
+  .creator-card__img,
+  .creator-card__details {
+    transition-duration: 0.01s;
+    transition-delay: 0s;
+  }
+}

@@ -1,0 +1,43 @@
+/* Reusable UI pieces (components/ui) */
+
+/* GlassPill: compound selectors so these win over the global .glass rule */
+.glass.glass-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+}
+
+.glass.glass-pill--sm {
+  padding: 0.25rem 0.7rem;
+  font-size: 0.8rem;
+}
+
+.glass.glass-pill--dark {
+  --glass-opacity: 0.4;
+  color: #fff;
+}
+
+.glass.glass-pill--primary {
+  --glass-opacity: 0.55;
+  color: #fff;
+}
+
+.glass.glass-pill--light {
+  --glass-opacity: 0.6;
+  color: var(--tc-ink);
+}
+
+.glass-pill__text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
