@@ -1,0 +1,125 @@
+/* Frosted deep-teal bar: the global .glass with a tint override.
+   Compound selectors so these win over both .glass and Vuetify's toolbar styles. */
+.glass.app-bar {
+  --glass-tint: var(--v-theme-accent4);
+  --glass-opacity: 0.88;
+  background: rgba(var(--glass-tint), var(--glass-opacity));
+  color: #fff;
+  border-width: 0 0 1px;
+  border-radius: 0;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+.app-bar__inner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1 1 auto;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding-inline: clamp(0.5rem, 2vw, 1rem);
+}
+
+.app-bar__nav,
+.app-bar__actions {
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.app-bar__actions {
+  gap: 0.5rem;
+}
+
+/* Logo goes last (right). Flip with logo-side="left". */
+.app-bar__logo {
+  order: 3;
+}
+
+.app-bar--logo-left .app-bar__logo {
+  order: -1;
+}
+
+.app-bar--logo-left .app-bar__menu-btn {
+  order: -2;
+}
+
+/* Links: no uppercase, with a yellow underline that grows in on hover and on the current page */
+.app-bar__link {
+  position: relative;
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.app-bar__link::after {
+  content: '';
+  position: absolute;
+  right: 1rem;
+  bottom: 0.35rem;
+  left: 1rem;
+  height: 2px;
+  border-radius: 2px;
+  background: rgb(var(--v-theme-accent2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.app-bar__link:hover::after,
+.app-bar__link:focus-visible::after,
+.app-bar__link.v-btn--active::after {
+  transform: scaleX(1);
+}
+
+/* ---------- side menu (phones and tablets) ---------- */
+
+.v-navigation-drawer.app-drawer {
+  background: rgb(var(--v-theme-accent4));
+  color: #fff;
+}
+
+.app-drawer .v-list {
+  padding: 0.75rem;
+  background: transparent;
+  color: inherit;
+}
+
+.app-drawer .v-list-item {
+  min-height: 3rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+.app-drawer .v-list-item--active {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.app-drawer .v-list-item__prepend > .v-icon {
+  opacity: 1;
+}
+
+.app-drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem 0.5rem;
+}
+
+.app-drawer__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem 1rem 1.5rem;
+}
+
+.app-drawer__outline {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-bar__link::after {
+    transition-duration: 0.01s;
+  }
+}
