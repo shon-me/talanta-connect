@@ -14,7 +14,7 @@ const { form, formRef, loading, error, showPassword, fieldRules, submit } = useS
 </script>
 
 <template>
-  <v-form ref="formRef" class="signup-form" :class="{ 'signup-form--dark': dark }" validate-on="blur"
+  <v-form ref="formRef" class="auth-form" :class="{ 'auth-form--dark': dark }" validate-on="blur"
     @submit.prevent="submit">
     <v-text-field v-model="form.fullName" label="Full name" autocomplete="name" prepend-inner-icon="mdi-account-outline"
       :rules="fieldRules.fullName" variant="solo" flat rounded="lg" density="comfortable" />
@@ -28,16 +28,21 @@ const { form, formRef, loading, error, showPassword, fieldRules, submit } = useS
       :append-inner-icon="showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'" :rules="fieldRules.password"
       variant="solo" flat rounded="lg" density="comfortable" @click:append-inner="showPassword = !showPassword" />
 
-    <div class="signup-form__role">
-      <span id="signup-role-label" class="signup-form__role-label">I want to join as</span>
-      <v-btn-toggle v-model="form.role" class="signup-form__role-toggle" aria-labelledby="signup-role-label" mandatory
+    <v-text-field v-if="form.password" v-model="form.confirmPassword" label="Confirm Password"
+      prepend-inner-icon="mdi-lock-outline" :type="showPassword ? 'text' : 'password'"
+      :append-inner-icon="showPassword ? 'mdi-eye-off-outline' : 'mdi-eye-outline'" :rules="fieldRules.confirmPassword"
+      variant="solo" flat rounded="lg" density="comfortable" @click:append-inner="showPassword = !showPassword" />
+
+    <div class="auth-form__role">
+      <span id="auth-role-label" class="auth-form__role-label">I want to join as</span>
+      <v-btn-toggle v-model="form.role" class="auth-form__role-toggle" aria-labelledby="auth-role-label" mandatory
         divided variant="outlined" density="comfortable" rounded="lg">
         <v-btn value="creator" class="flex-grow-1" prepend-icon="mdi-palette-outline">Creator</v-btn>
         <v-btn value="brand" class="flex-grow-1" prepend-icon="mdi-storefront-outline">Brand</v-btn>
       </v-btn-toggle>
     </div>
 
-    <v-alert v-if="error" class="signup-form__error" type="error" variant="flat" density="compact">
+    <v-alert v-if="error" class="auth-form__error" type="error" variant="flat" density="compact">
       {{ error }}
     </v-alert>
 
@@ -45,7 +50,7 @@ const { form, formRef, loading, error, showPassword, fieldRules, submit } = useS
       Create account
     </v-btn>
 
-    <p class="signup-form__footer">
+    <p class="auth-form__footer">
       Already have an account?
       <router-link to="/login">Log in</router-link>
     </p>

@@ -53,7 +53,7 @@
   min-height: 0;
   overflow: hidden;
   isolation: isolate;
-  border-radius: 0.7rem;
+  border-radius: 0.6rem;
   background: rgb(var(--v-theme-accent4));
   color: #fff;
   transition: filter 0.6s ease;

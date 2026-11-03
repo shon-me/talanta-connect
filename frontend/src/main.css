@@ -2,11 +2,14 @@
 /* Vuetify may not be enough for the styling */
 /* My custom styling */
 
-/* ADDED: page/component styles live in src/styles/ and are pulled in here. */
-/* @import rules must stay at the top of this file. */
+/* Component styles are pulled here. */
 @import './styles/home.css';
+@import './styles/feed.css';
+@import './styles/home.css';
+@import './styles/profile.css';
 @import './styles/ui.css';
-@import './styles/signup-form.css';
+@import './styles/auth-form.css';
+@import './styles/auth.css';
 @import './styles/hero.css';
 @import './styles/featured-brands.css';
 @import './styles/featured-creators.css';
@@ -147,19 +150,16 @@
   opacity: 0;
 }
 
-/* ================================================================== */
-/* ADDED: global design tokens, scroll behaviour and helpers           */
-/* ================================================================== */
 
+/* Global design tokens, scroll behaviour and helpers */
 :root {
   --font-display: 'Unbounded Variable', 'Trebuchet MS', sans-serif;
   --font-body: 'Figtree Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --tc-ink: #0a2f38;      /* deep teal-black: text on light backgrounds (darkened accent4) */
+  --tc-ink: #0a2f38;      /* deep teal-black: text on light backgrounds */
   --tc-paper: #f4f8fb;    /* light section background */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* If App.vue uses a v-app-bar, set this to its height so sections fit under it */
   --app-bar-height: 64px;
 }
 
@@ -170,20 +170,18 @@
   font-family: var(--font-body);
 }
 
-/* Smooth scrolling + one section per screen.
-   proximity on phones/short screens so tall sections can never trap content,
-   mandatory on desktop. */
+/* Smooth scrolls */
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--app-bar-height);
-  scroll-snap-type: y proximity;
+  /* scroll-snap-type: y proximity; */
 }
 
-@media (min-width: 960px) and (min-height: 640px) {
+/* @media (min-width: 960px) and (min-height: 640px) {
   html {
     scroll-snap-type: y mandatory;
   }
-}
+} */
 
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -191,7 +189,7 @@ html {
   }
 }
 
-/* Brand-coloured version of the animated blobs (yellow, orange, blue) */
+/* Brand-coloured animated blobs */
 .animated-bg--brand .blob-1 {
   background: rgb(var(--v-theme-accent2));
 }
@@ -217,8 +215,7 @@ html {
   border: 0;
 }
 
-
-/* Lets keyboard users jump past the app bar. Hidden until focused. */
+/* Skip app bar with keyboard arrows */
 .skip-link {
   position: fixed;
   top: 0.5rem;

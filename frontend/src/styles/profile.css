@@ -1,0 +1,75 @@
+/* Brand page and creator page (views/BrandView.vue, views/CreatorView.vue).
+   The cards use the shared styles in feed.css. */
+
+.profile {
+  min-height: calc(100vh - var(--app-bar-height));
+  min-height: calc(100svh - var(--app-bar-height));
+  padding-block: clamp(1.5rem, 4svh, 3rem) clamp(3rem, 8svh, 6rem);
+  background: var(--tc-paper);
+}
+
+.profile__inner {
+  width: min(100% - 2rem, 980px);
+  margin-inline: auto;
+}
+
+.profile__back {
+  margin: 0 0 1rem -0.75rem;
+}
+
+/* --feed-gap is what lets the open card line up with the cards below it */
+.profile__head {
+  --feed-gap: clamp(1rem, 3vw, 2rem);
+  margin-bottom: clamp(2.5rem, 7svh, 4.5rem);
+}
+
+.profile__head-skeleton {
+  aspect-ratio: 16 / 9;
+}
+
+.profile__section-head {
+  margin-bottom: clamp(1.25rem, 3svh, 2rem);
+}
+
+.profile__status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: clamp(2rem, 6vw, 4rem) 1.5rem;
+  border-radius: 0.6rem;
+  background: #fff;
+  color: var(--tc-ink);
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(10, 47, 56, 0.08);
+}
+
+.profile__status-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
+  font-weight: 600;
+}
+
+.profile__status-text {
+  max-width: 44ch;
+  margin: 0 0 0.75rem;
+  line-height: 1.6;
+  color: rgba(10, 47, 56, 0.8);
+}
+
+.profile__empty {
+  margin: 0;
+  padding: 2rem 1.5rem;
+  border-radius: 0.6rem;
+  background: #fff;
+  color: rgba(10, 47, 56, 0.8);
+  text-align: center;
+}
+
+.profile-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}

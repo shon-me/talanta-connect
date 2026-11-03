@@ -8,7 +8,6 @@
   text-align: center;
 }
 
-/* Keep the blobs at the edges so they never sit behind the text */
 .join-cta .blob {
   opacity: 0.5;
 }

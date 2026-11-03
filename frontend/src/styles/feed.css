@@ -1,0 +1,280 @@
+/* Shared by every page that shows cards: home feed, brand page, creator page */
+
+/* ---------- grid: two cards per row, one on phones ---------- */
+
+.feed__grid {
+  --feed-gap: clamp(1rem, 3vw, 2rem);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--feed-gap);
+  align-items: start;
+}
+
+@media (max-width: 719px) {
+  .feed__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+/* ---------- card ---------- */
+
+.feed-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 0.6rem;
+  background: #fff;
+  color: var(--tc-ink);
+  box-shadow: 0 1px 2px rgba(10, 47, 56, 0.06), 0 12px 32px rgba(10, 47, 56, 0.08);
+}
+
+/* The open card takes the whole row. The cards around it move to the next rows. */
+.feed-card--expanded {
+  grid-column: 1 / -1;
+  box-shadow: 0 1px 2px rgba(10, 47, 56, 0.06), 0 24px 56px rgba(10, 47, 56, 0.14);
+}
+
+/* Wide screens: the image keeps the size of a normal card and the details sit beside it */
+@media (min-width: 720px) {
+  .feed-card--expanded {
+    grid-template-columns: calc((100% - var(--feed-gap, 2rem)) / 2) minmax(0, 1fr);
+  }
+}
+
+.feed-card--skeleton {
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(100deg, #e8eef3 30%, #f6f9fb 50%, #e8eef3 70%);
+  background-size: 200% 100%;
+  box-shadow: none;
+  animation: feed-shimmer 1.4s linear infinite;
+}
+
+@keyframes feed-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* ---------- image side ---------- */
+
+.feed-card__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  color: #fff;
+  background: linear-gradient(150deg, rgb(var(--v-theme-primary)), rgb(var(--v-theme-accent4)));
+}
+
+/* Placeholder colours until a real image is set */
+.feed-card--tone-1 .feed-card__media { background: linear-gradient(150deg, rgb(var(--v-theme-accent3)), rgb(var(--v-theme-accent4))); }
+.feed-card--tone-2 .feed-card__media { background: linear-gradient(150deg, rgb(var(--v-theme-secondary)), rgb(var(--v-theme-accent1))); }
+.feed-card--tone-3 .feed-card__media { background: linear-gradient(150deg, rgb(var(--v-theme-accent4)), rgb(var(--v-theme-primary))); }
+.feed-card--tone-4 .feed-card__media { background: linear-gradient(150deg, rgb(var(--v-theme-accent1)), rgb(var(--v-theme-accent4))); }
+.feed-card--tone-5 .feed-card__media { background: linear-gradient(150deg, rgb(var(--v-theme-accent2)), rgb(var(--v-theme-accent3))); }
+
+.feed-card__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.9s var(--ease-out);
+}
+
+.feed-card:not(.feed-card--expanded) .feed-card__media:hover .feed-card__img {
+  transform: scale(1.04);
+}
+
+.feed-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(4, 32, 40, 0.86) 0%, rgba(4, 32, 40, 0.2) 50%, rgba(4, 32, 40, 0.08) 100%);
+}
+
+/* One invisible button over the image: click, tap and keyboard all work through it */
+.feed-card__toggle {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.feed-card__toggle:focus-visible {
+  outline: 3px solid rgb(var(--v-theme-accent2));
+  outline-offset: -6px;
+  border-radius: inherit;
+}
+
+.feed-card__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  pointer-events: none;
+}
+
+.feed-card__bottom {
+  display: flex;
+  margin-top: auto;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+
+.feed-card__text {
+  min-width: 0;
+}
+
+.feed-card__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1rem + 0.9vw, 1.55rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.feed-card__subline {
+  display: -webkit-box;
+  margin: 0.4rem 0 0;
+  overflow: hidden;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.92);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.feed-card__icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+/* ---------- details side ---------- */
+
+.feed-card__panel {
+  min-width: 0;
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  animation: feed-panel-in 0.5s var(--ease-out) 0.2s both;
+}
+
+@keyframes feed-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.feed-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.feed-detail__eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgb(var(--v-theme-primary));
+}
+
+.feed-detail__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.feed-detail__text {
+  margin: 0;
+  line-height: 1.6;
+  color: rgba(10, 47, 56, 0.82);
+}
+
+.feed-detail__label {
+  margin: 0 0 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(10, 47, 56, 0.68);
+}
+
+.feed-detail__strong {
+  margin: 0 0 0.25rem;
+  font-weight: 600;
+}
+
+.feed-detail__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 0;
+  padding-block: 1.25rem;
+  border-block: 1px solid rgba(10, 47, 56, 0.1);
+}
+
+.feed-detail__facts dt {
+  margin-bottom: 0.25rem;
+  font-size: 0.85rem;
+  color: rgba(10, 47, 56, 0.68);
+}
+
+.feed-detail__facts dd {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.feed-detail__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.feed-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+/* Profile header: the same card, always open, with no toggle or +/x icon */
+.feed-card--pinned .feed-card__img {
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feed-card__img {
+    transition: none;
+  }
+
+  .feed-card__panel {
+    animation: none;
+  }
+
+  .feed-card--skeleton {
+    animation: none;
+  }
+}

@@ -34,35 +34,13 @@ watch(slideCount, async (count) => {
 </script>
 
 <template>
-  <div
-    ref="root"
-    class="hero-carousel animated-gradient"
-    role="region"
-    aria-roledescription="carousel"
-    aria-label="About Talanta Connect"
-  >
-    <article
-      v-for="(slide, i) in slides"
-      :key="slide.id"
-      class="hero-slide"
-      :class="{ 'is-active': ready && i === active, 'is-leaving': i === leaving }"
-      :aria-hidden="i !== active"
-    >
-      <video
-        :ref="(el) => setVideo(el, i)"
-        class="hero-slide__video video-cover"
-        :src="sources[i] || undefined"
-        :poster="slide.poster"
-        muted
-        playsinline
-        preload="auto"
-        tabindex="-1"
-        aria-hidden="true"
-        @canplay="onCanPlay(i)"
-        @ended="onEnded(i)"
-        @timeupdate="onTimeUpdate(i)"
-        @error="onError(i)"
-      />
+  <div ref="root" class="hero-carousel animated-gradient" role="region" aria-roledescription="carousel"
+    aria-label="About Talanta Connect">
+    <article v-for="(slide, i) in slides" :key="slide.id" class="hero-slide"
+      :class="{ 'is-active': ready && i === active, 'is-leaving': i === leaving }" :aria-hidden="i !== active">
+      <video :ref="(el) => setVideo(el, i)" class="hero-slide__video video-cover" :src="sources[i] || undefined"
+        :poster="slide.poster" muted playsinline preload="auto" tabindex="-1" aria-hidden="true" @canplay="onCanPlay(i)"
+        @ended="onEnded(i)" @timeupdate="onTimeUpdate(i)" @error="onError(i)" />
       <div class="hero-slide__scrim" />
 
       <div class="hero-caption">
@@ -80,35 +58,15 @@ watch(slideCount, async (count) => {
 
     <div v-if="slideCount" class="hero-controls">
       <div class="hero-indicators">
-        <button
-          v-for="(slide, i) in slides"
-          :key="slide.id"
-          type="button"
-          class="hero-indicator"
-          :aria-label="`Show slide ${i + 1}: ${slide.title}`"
-          :aria-current="i === active"
-          @click="goTo(i)"
-        >
-          <v-progress-linear
-            :model-value="barValue(i)"
-            height="3"
-            rounded
-            color="white"
-            bg-color="white"
-            bg-opacity="0.35"
-          />
+        <button v-for="(slide, i) in slides" :key="slide.id" type="button" class="hero-indicator"
+          :aria-label="`Show slide ${i + 1}: ${slide.title}`" :aria-current="i === active" @click="goTo(i)">
+          <v-progress-linear :model-value="barValue(i)" height="3" rounded color="white" bg-color="white"
+            bg-opacity="0.35" />
         </button>
       </div>
 
-      <v-btn
-        :icon="playing ? 'mdi-pause' : 'mdi-play'"
-        :aria-label="playing ? 'Pause videos' : 'Play videos'"
-        class="glass glass-dark"
-        color="white"
-        variant="text"
-        size="small"
-        @click="toggle"
-      />
+      <v-btn :icon="playing ? 'mdi-pause' : 'mdi-play'" :aria-label="playing ? 'Pause videos' : 'Play videos'"
+        class="glass glass-dark" color="white" variant="text" size="small" @click="toggle" />
     </div>
   </div>
 </template>

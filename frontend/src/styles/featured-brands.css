@@ -62,7 +62,7 @@
   left: 50%;
   width: var(--brand-card-w);
   aspect-ratio: 4 / 5;
-  border-radius: 0.7rem;
+  border-radius: 0.6rem;
   overflow: hidden;
   isolation: isolate;
   background: rgb(var(--v-theme-accent4));

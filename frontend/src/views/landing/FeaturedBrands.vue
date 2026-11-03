@@ -59,31 +59,15 @@ useSwipe(stage, { onLeft: () => go(next), onRight: () => go(prev) })
       <p class="section-lead">Brands on Talanta Connect that work with creators.</p>
     </header>
 
-    <div
-      class="featured-brands__row"
-      @mouseenter="hold"
-      @mouseleave="release"
-      @focusin="hold"
-      @focusout="release"
-    >
+    <div class="featured-brands__row" @mouseenter="hold" @mouseleave="release" @focusin="hold" @focusout="release">
       <v-btn icon="mdi-chevron-left" color="primary" variant="tonal" aria-label="Previous brand" @click="go(prev)" />
 
-      <div
-        ref="stage"
-        class="featured-brands__stage"
-        role="group"
-        aria-roledescription="carousel"
-        aria-label="Featured brands"
-      >
+      <div ref="stage" class="featured-brands__stage" role="group" aria-roledescription="carousel"
+        aria-label="Featured brands">
         <v-progress-circular v-if="loading" class="featured-brands__loader" indeterminate color="primary" />
 
-        <article
-          v-for="card in cards"
-          :key="card.key"
-          class="featured-brands__card"
-          :class="`featured-brands__card--${card.state}`"
-          @click="onCardClick(card.state)"
-        >
+        <article v-for="card in cards" :key="card.key" class="featured-brands__card"
+          :class="`featured-brands__card--${card.state}`" @click="onCardClick(card.state)">
           <v-img :src="card.image" alt="" cover class="featured-brands__img" />
           <div class="featured-brands__scrim" />
 

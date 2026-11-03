@@ -1,5 +1,3 @@
-/* Frosted deep-teal bar: the global .glass with a tint override.
-   Compound selectors so these win over both .glass and Vuetify's toolbar styles. */
 .glass.app-bar {
   --glass-tint: var(--v-theme-accent4);
   --glass-opacity: 0.88;
@@ -30,7 +28,6 @@
   gap: 0.5rem;
 }
 
-/* Logo goes last (right). Flip with logo-side="left". */
 .app-bar__logo {
   order: 3;
 }
@@ -43,7 +40,6 @@
   order: -2;
 }
 
-/* Links: no uppercase, with a yellow underline that grows in on hover and on the current page */
 .app-bar__link {
   position: relative;
   color: #fff;

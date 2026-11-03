@@ -25,31 +25,16 @@ watch(mdAndUp, (isDesktop) => { if (isDesktop) drawer.value = false })
 
 <template>
   <!-- Keep :height in sync with --app-bar-height in main.css -->
-  <v-app-bar
-    class="app-bar glass"
-    :class="{ 'app-bar--logo-left': logoSide === 'left' }"
-    :height="64"
-    flat
-  >
+  <v-app-bar class="app-bar glass" :class="{ 'app-bar--logo-left': logoSide === 'left' }" :height="64" flat>
     <div class="app-bar__inner">
       <!-- Phones and tablets: opens the side menu -->
-      <v-app-bar-nav-icon
-        class="app-bar__menu-btn d-md-none"
-        aria-label="Open menu"
-        :aria-expanded="drawer"
-        @click="drawer = !drawer"
-      />
+      <v-app-bar-nav-icon class="app-bar__menu-btn d-md-none" aria-label="Open menu" :aria-expanded="drawer"
+        @click="drawer = !drawer" />
 
       <!-- Desktop: links in the bar -->
       <nav class="app-bar__nav d-none d-md-flex" aria-label="Main">
-        <v-btn
-          v-for="link in navLinks"
-          :key="link.to"
-          :to="link.to"
-          :exact="link.exact"
-          variant="text"
-          class="app-bar__link"
-        >
+        <v-btn v-for="link in navLinks" :key="link.to" :to="link.to" :exact="link.exact" variant="text"
+          class="app-bar__link">
           {{ link.label }}
         </v-btn>
       </nav>
@@ -88,16 +73,8 @@ watch(mdAndUp, (isDesktop) => { if (isDesktop) drawer.value = false })
     </div>
 
     <v-list nav>
-      <v-list-item
-        v-for="link in navLinks"
-        :key="link.to"
-        :to="link.to"
-        :exact="link.exact"
-        :prepend-icon="link.icon"
-        :title="link.label"
-        rounded="lg"
-        @click="drawer = false"
-      />
+      <v-list-item v-for="link in navLinks" :key="link.to" :to="link.to" :exact="link.exact" :prepend-icon="link.icon"
+        :title="link.label" rounded="lg" @click="drawer = false" />
     </v-list>
 
     <template #append>
@@ -106,15 +83,8 @@ watch(mdAndUp, (isDesktop) => { if (isDesktop) drawer.value = false })
           <v-btn to="/signup" color="secondary" size="large" rounded="lg" block @click="drawer = false">
             Sign up
           </v-btn>
-          <v-btn
-            to="/login"
-            class="app-drawer__outline"
-            variant="outlined"
-            size="large"
-            rounded="lg"
-            block
-            @click="drawer = false"
-          >
+          <v-btn to="/login" class="app-drawer__outline" variant="outlined" size="large" rounded="lg" block
+            @click="drawer = false">
             Log in
           </v-btn>
         </template>
@@ -122,14 +92,8 @@ watch(mdAndUp, (isDesktop) => { if (isDesktop) drawer.value = false })
           <v-btn to="/profile" color="secondary" size="large" rounded="lg" block @click="drawer = false">
             My profile
           </v-btn>
-          <v-btn
-            class="app-drawer__outline"
-            variant="outlined"
-            size="large"
-            rounded="lg"
-            block
-            @click="auth.logout(); drawer = false"
-          >
+          <v-btn class="app-drawer__outline" variant="outlined" size="large" rounded="lg" block
+            @click="auth.logout(); drawer = false">
             Log out
           </v-btn>
         </template>
