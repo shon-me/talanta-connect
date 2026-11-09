@@ -37,6 +37,24 @@ export async function loginUser({ email, password }) {
   return toUser(data.user)
 }
 
+export async function loginAdmin({ email, password, code }) {
+  // BACKEND: POST /api/admin/auth/login/
+  //   body -> { email, password, code }   code = the 6 digit code from the admin's authenticator app
+  //   200  -> { user: { id, full_name, email, role: 'admin' } } and a session
+  //   401  -> { detail: 'Incorrect details.' }   one message for every failure, never say which part was wrong
+  //   Needs: a separate admin account type, required two-step verification, strict rate limiting and
+  //   lockout, an IP allow-list or VPN in front of /api/admin/*, short sessions, and an audit log entry
+  //   for every attempt (the System logs page shows these).
+  if (USE_MOCK) {
+    await wait(700)
+    if (!/admin/i.test(email) || !/^\d{6}$/.test(code)) throw new Error('Incorrect details.')
+    return { id: 0, fullName: 'Preview admin', email, role: 'admin' }
+  }
+
+  const data = await post('/admin/auth/login/', { email, password, code })
+  return toUser(data.user)
+}
+
 export async function fetchCurrentUser() {
   // BACKEND: GET /api/auth/me/ -> { id, full_name, email, role }
   //   401 when nobody is signed in. Called once on app start so a refresh keeps the user signed in.

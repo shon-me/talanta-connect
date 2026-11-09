@@ -1,6 +1,6 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useDisplay } from 'vuetify'
 import AppLogo from '@/components/ui/AppLogo.vue'
 import { navLinks } from '@/constants/navigation'
@@ -13,9 +13,26 @@ defineProps({
 
 const auth = useAuthStore()
 const route = useRoute()
+const router = useRouter()
 const { mdAndUp } = useDisplay()
 
+// Signed-in users: Home opens the feed, no Explore link. Guests: Home is the landing page.
+const links = computed(() =>
+  navLinks
+    .filter((l) => !(l.guestOnly && auth.isAuthenticated))
+    .map((l) => ({ ...l, to: auth.isAuthenticated && l.authTo ? l.authTo : l.to })),
+)
+
+// Creators and brand managers get a link to their dashboard. The admin area is never linked from here.
+const dashboardTo = computed(() => ({ creator: '/dashboard/creator', brand: '/dashboard/brand' })[auth.role] ?? null)
+
 const drawer = ref(false)
+
+async function logout() {
+  await auth.logout()
+  drawer.value = false
+  router.push('/')
+}
 const initial = computed(() => auth.user?.fullName?.trim()?.[0]?.toUpperCase() ?? '?')
 
 // Close the side menu after navigating, and if the screen grows to desktop size while it is open
@@ -33,7 +50,7 @@ watch(mdAndUp, (isDesktop) => { if (isDesktop) drawer.value = false })
 
       <!-- Desktop: links in the bar -->
       <nav class="app-bar__nav d-none d-md-flex" aria-label="Main">
-        <v-btn v-for="link in navLinks" :key="link.to" :to="link.to" :exact="link.exact" variant="text"
+        <v-btn v-for="link in links" :key="link.to" :to="link.to" :exact="link.exact" variant="text"
           class="app-bar__link">
           {{ link.label }}
         </v-btn>
@@ -55,8 +72,9 @@ watch(mdAndUp, (isDesktop) => { if (isDesktop) drawer.value = false })
             </v-btn>
           </template>
           <v-list density="compact" nav>
-            <v-list-item to="/profile" title="My profile" prepend-icon="mdi-account-outline" />
-            <v-list-item title="Log out" prepend-icon="mdi-logout" @click="auth.logout()" />
+            <v-list-item v-if="dashboardTo" :to="dashboardTo" title="Dashboard"
+              prepend-icon="mdi-view-dashboard-outline" />
+            <v-list-item title="Log out" prepend-icon="mdi-logout" @click="logout" />
           </v-list>
         </v-menu>
       </div>
@@ -68,12 +86,12 @@ watch(mdAndUp, (isDesktop) => { if (isDesktop) drawer.value = false })
   <!-- Side menu for smaller screens -->
   <v-navigation-drawer v-model="drawer" class="app-drawer" temporary location="left" width="300">
     <div class="app-drawer__head">
-      <AppLogo />
+      <AppLogo variant="full" />
       <v-btn icon="mdi-close" variant="text" size="small" aria-label="Close menu" @click="drawer = false" />
     </div>
 
     <v-list nav>
-      <v-list-item v-for="link in navLinks" :key="link.to" :to="link.to" :exact="link.exact" :prepend-icon="link.icon"
+      <v-list-item v-for="link in links" :key="link.to" :to="link.to" :exact="link.exact" :prepend-icon="link.icon"
         :title="link.label" rounded="lg" @click="drawer = false" />
     </v-list>
 
@@ -89,11 +107,11 @@ watch(mdAndUp, (isDesktop) => { if (isDesktop) drawer.value = false })
           </v-btn>
         </template>
         <template v-else>
-          <v-btn to="/profile" color="secondary" size="large" rounded="lg" block @click="drawer = false">
-            My profile
+          <v-btn v-if="dashboardTo" :to="dashboardTo" color="secondary" size="large" rounded="lg" block
+            @click="drawer = false">
+            Dashboard
           </v-btn>
-          <v-btn class="app-drawer__outline" variant="outlined" size="large" rounded="lg" block
-            @click="auth.logout(); drawer = false">
+          <v-btn class="app-drawer__outline" variant="outlined" size="large" rounded="lg" block @click="logout">
             Log out
           </v-btn>
         </template>

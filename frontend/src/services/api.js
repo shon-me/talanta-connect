@@ -35,3 +35,11 @@ export async function request(path, { method = 'GET', body, signal } = {}) {
 
 export const get = (path, options) => request(path, options)
 export const post = (path, body, options) => request(path, { ...options, method: 'POST', body })
+export const put = (path, body, options) => request(path, { ...options, method: 'PUT', body })
+export const patch = (path, body, options) => request(path, { ...options, method: 'PATCH', body })
+export const del = (path, options) => request(path, { ...options, method: 'DELETE' })
+
+// For endpoints that speak snake_case: answers come back camelCase, bodies go out snake_case
+export const getCamel = async (path, options) => camelizeKeys(await get(path, options))
+export const sendCamel = async (method, path, body) =>
+  camelizeKeys(await request(path, { method, body: body ? snakeKeys(body) : undefined }))
