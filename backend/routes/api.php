@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BrandCategoryController;
+use App\Http\Controllers\BrandsController;
 use App\Http\Controllers\ResendVerificationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -34,9 +36,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/delete-role/{id}', [RoleController::class, 'deleteRole']);
     });
 
-    Route::post('/create-user', [UserController::class, 'createUser']);
-    Route::get('/read-users', [UserController::class, 'readAll']);
-    Route::get('/read-user/{id}', [UserController::class, 'readUser']);
-    Route::post('/update-user/{id}', [UserController::class, 'updateUser']);
-    Route::delete('/delete-user/{id}', [UserController::class, 'deleteUser']);
+    //General admin checking    
+    Route::middleware('check.admin.general')->group(function () {
+        Route::post('/create-user', [UserController::class, 'createUser']);
+        Route::get('/read-users', [UserController::class, 'readAll']);
+        Route::get('/read-user/{id}', [UserController::class, 'readUser']);
+        Route::post('/update-user/{id}', [UserController::class, 'updateUser']);
+        Route::delete('/delete-user/{id}', [UserController::class, 'deleteUser']);
+    });
+
+    Route::apiResource('brands', BrandsController::class);
+    Route::apiResource('brand-categories', BrandCategoryController::class);
 });

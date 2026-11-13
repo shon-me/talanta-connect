@@ -13,27 +13,16 @@ class VerifyEmailNotification extends Notification
 
     protected $signedUrl;
 
-    /**
-     * Create a new notification instance.
-     */
     public function __construct($signedUrl)
     {
         $this->signedUrl = $signedUrl;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
-     */
     public function via(object $notifiable): array
     {
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     */
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
@@ -43,11 +32,6 @@ class VerifyEmailNotification extends Notification
             ->line('If you did not create an account, no action is required.');
     }
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
     public function toArray(object $notifiable): array
     {
         return [
