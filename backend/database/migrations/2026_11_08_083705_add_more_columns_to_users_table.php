@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('user_image')->nullable();
             $table->boolean('is_active')->nullable();
-            $table->unsignedBigInteger('role_id')->nullable();
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreignId('role_id')->constrained('roles')->restrictOnDelete()->restrictOnUpdate();
         });
     }
 
@@ -26,9 +25,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign(['role_id']);
-            $table->dropColumn('role_id');
-            $table->dropColumn('user_image');
-            $table->dropColumn('is_active');
+            $table->dropColumn(['role_id', 'is_active', 'role_id']);
         });
     }
 };

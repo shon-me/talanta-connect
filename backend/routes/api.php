@@ -24,11 +24,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('me', [AuthController::class, 'userInfo']);
     Route::post('/logout-user', [AuthController::class, 'logout']);
 
-    Route::get('/read-roles', [RoleController::class, 'readRoles']);
-    Route::get('/read-role/{id}', [RoleController::class, 'readRole']);
-
     //Added security for only admin to be able to perform these tasks.
     Route::middleware('check.admin')->group(function () {
+        Route::get('/read-roles', [RoleController::class, 'readRoles']);
+        Route::get('/read-role/{id}', [RoleController::class, 'readRole']);
         Route::post('/create-role', [RoleController::class, 'createRole']);
         Route::post('/update-role/{id}', [RoleController::class, 'updateRole']);
         Route::delete('/delete-role/{id}', [RoleController::class, 'deleteRole']);

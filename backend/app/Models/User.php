@@ -7,6 +7,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -34,6 +35,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
         ];
     }
 
@@ -50,5 +52,15 @@ class User extends Authenticatable
             'creator' => $this->role?->name === 'CREATOR',
             'brand' => $this->role?->name === 'BRAND'
         ];
+    }
+
+    public function brands(): HasOne
+    {
+        return $this->hasOne(Brand::class);
+    }
+
+    public function creators(): HasOne
+    {
+        return $this->hasOne(Creator::class);
     }
 }
